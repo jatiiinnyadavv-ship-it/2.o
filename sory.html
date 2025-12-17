@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I’m Sorry Wifey ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(-45deg,#ffb3c6,#fbc2eb,#cdb4db,#bde0fe);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* floating hearts */
+.heart{
+  position:absolute;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 7s linear infinite;
+  opacity:0.6;
+}
+@keyframes float{
+  0%{transform:translateY(0) scale(1);opacity:0}
+  20%{opacity:0.6}
+  100%{transform:translateY(-110vh) scale(1.4);opacity:0}
+}
+
+.card{
+  width:90%;
+  max-width:420px;
+  padding:30px;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(20px);
+  border-radius:25px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.25);
+  text-align:center;
+  color:#fff;
+  animation:zoom 1s ease;
+}
+
+@keyframes zoom{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+h1{
+  margin-bottom:15px;
+  text-shadow:0 0 15px rgba(255,255,255,0.6);
+}
+
+p{
+  font-size:15.5px;
+  line-height:1.8;
+  margin-bottom:20px;
+}
+
+button{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff4d6d,#ff758f);
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.06);
+}
+
+.page{display:none;}
+.page.active{display:block;}
+
+.big-heart{
+  font-size:42px;
+  animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+
+/* typing effect */
+.typing{
+  min-height:110px;
+}
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2d6f9a4c68.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+for(let i=0;i<22;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<div class="card">
+
+  <div class="page active">
+    <h1>Hey Wifey ❤️</h1>
+    <div class="typing" id="type1"></div>
+    <button onclick="next()">Next</button>
+  </div>
+
+  <div class="page">
+    <div class="typing" id="type2"></div>
+    <button onclick="next()">Next</button>
+  </div>
+
+  <div class="page">
+    <div class="typing" id="type3"></div>
+    <button onclick="next()">Next</button>
+  </div>
+
+  <div class="page">
+    <div class="big-heart">❤️</div>
+    <p>
+      Jab mann ho… bas ek baar call kar lena.  
+      Main yahin hoon.
+    </p>
+    <a href="tel:+91XXXXXXXXXX">
+      <button>📞 Call Me</button>
+    </a>
+  </div>
+
+</div>
+
+<script>
+let musicPlayed=false;
+function playMusic(){
+  if(!musicPlayed){
+    document.getElementById("bgm").play();
+    musicPlayed=true;
+  }
+}
+
+let i=0;
+const pages=document.querySelectorAll(".page");
+function next(){
+  pages[i].classList.remove("active");
+  i++;
+  if(i<pages.length){
+    pages[i].classList.add("active");
+    startTyping();
+  }
+}
+
+const texts=[
+  "Aaj mazaak ke naam pe jo hua…\nwo mazaak nahi tha.\nAur jab tu royi,\nmujhe samajh aa gaya\nmaine tujhe hurt kar diya.",
+  "Cheat word bolna hi galat tha.\nKyuki tu meri girlfriend nahi,\ntu meri wifey hai.\nAur wifey ke emotions ke saath\nkoi prank nahi hota.",
+  "Main perfect nahi hoon,\npar dil se ye maanta hoon —\nmeri galti thi.\nAur main sincerely sorry hoon."
+];
+
+let tIndex=0, cIndex=0;
+function startTyping(){
+  if(tIndex>=texts.length) return;
+  let el=document.getElementById("type"+(tIndex+1));
+  let interval=setInterval(()=>{
+    el.innerHTML+=texts[tIndex][cIndex] || "";
+    cIndex++;
+    if(cIndex>=texts[tIndex].length){
+      clearInterval(interval);
+      tIndex++; cIndex=0;
+    }
+  },40);
+}
+startTyping();
+</script>
+
+</body>
+</html>
